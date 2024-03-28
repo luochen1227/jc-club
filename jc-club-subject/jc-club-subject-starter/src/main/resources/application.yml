@@ -1,0 +1,31 @@
+server:
+  port: 3000
+spring:
+  datasource:
+    username: root
+    password: qmFSVgIgbJkKQ27AJaTJzxj9GG3AiavR+B1sqQtyxzAHstwrmK7hnB6RtFKKNPIdzOIw3hME3cS+5+Jylo3Jrw==
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://47.122.45.3:3306/jc-club?serverTimezone=Asia/Shanghai&useUnicode=true&characterEncoding=utf8&useSSL=true
+    type: com.alibaba.druid.pool.DruidDataSource
+    druid:
+      initial-size: 20  #初始化链接
+      min-idle: 20   #最小空闲数
+      max-active: 100  #最大连接数
+      max-wait: 60000
+      connectionProperties: config.decrypt=true;config.decrypt.key=${publicKey};
+      stat-view-servlet:
+        enabled: true
+        url-pattern: /druid/*
+        login-username: admin
+        login-password: 137080
+      filter:
+        stat:
+          enabled: true
+          slow-sql-millis: 2000
+          log-slow-sql: true
+        wall:
+          enabled: true
+        config:
+          enabled: true
+publicKey: MFwwDQYJKoZIhvcNAQEBBQADSwAwSAJBALlfJatQNssjTW4uKKKj+qmBvGj5jptpYInV1wH0geDEghGRZwYinLHUKaoVRhWej6yaLCHVo4gu7bZdfx380iMCAwEAAQ==
+
