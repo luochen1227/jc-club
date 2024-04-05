@@ -1,7 +1,6 @@
 package com.jingdianjichi.domain.entity;
 
-import com.baomidou.mybatisplus.annotation.IdType;
-import com.baomidou.mybatisplus.annotation.TableId;
+
 import com.baomidou.mybatisplus.annotation.TableName;
 import com.jingdianjichi.subject.common.entity.PageInfo;
 import lombok.AllArgsConstructor;
