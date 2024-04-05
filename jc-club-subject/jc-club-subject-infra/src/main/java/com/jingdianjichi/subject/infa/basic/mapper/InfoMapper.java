@@ -2,6 +2,9 @@ package com.jingdianjichi.subject.infa.basic.mapper;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.jingdianjichi.subject.infa.basic.entity.Info;
+import org.apache.ibatis.annotations.Param;
+
+import java.util.List;
 
 /**
  * <p>
@@ -13,4 +16,13 @@ import com.jingdianjichi.subject.infa.basic.entity.Info;
  */
 public interface InfoMapper extends BaseMapper<Info> {
 
+    int countByCondition(@Param("Info") Info info,
+                         @Param("categoryId")Long categoryId,
+                         @Param("labelId")Long labelId);
+
+    List<Info> queryPage(@Param("Info") Info info,
+                         @Param("categoryId")Long categoryId,
+                         @Param("labelId") Long labelId,
+                         @Param("start") int start,
+                         @Param("pageSize") Integer pageSize);
 }

@@ -52,7 +52,7 @@ public class Info implements Serializable {
     /**
      * 题目类型 1单选 2多选 3判断 4简答
      */
-    private Byte subjectType;
+    private Integer subjectType;
 
     /**
      * 题目分数
@@ -86,117 +86,5 @@ public class Info implements Serializable {
 
     private Integer isDeleted;
 
-    public Long getId() {
-        return id;
-    }
 
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public String getSubjectName() {
-        return subjectName;
-    }
-
-    public void setSubjectName(String subjectName) {
-        this.subjectName = subjectName;
-    }
-
-    public Byte getSubjectDifficult() {
-        return subjectDifficult;
-    }
-
-    public void setSubjectDifficult(Byte subjectDifficult) {
-        this.subjectDifficult = subjectDifficult;
-    }
-
-    public String getSettleName() {
-        return settleName;
-    }
-
-    public void setSettleName(String settleName) {
-        this.settleName = settleName;
-    }
-
-    public Byte getSubjectType() {
-        return subjectType;
-    }
-
-    public void setSubjectType(Byte subjectType) {
-        this.subjectType = subjectType;
-    }
-
-    public Byte getSubjectScore() {
-        return subjectScore;
-    }
-
-    public void setSubjectScore(Byte subjectScore) {
-        this.subjectScore = subjectScore;
-    }
-
-    public String getSubjectParse() {
-        return subjectParse;
-    }
-
-    public void setSubjectParse(String subjectParse) {
-        this.subjectParse = subjectParse;
-    }
-
-    public String getCreatedBy() {
-        return createdBy;
-    }
-
-    public void setCreatedBy(String createdBy) {
-        this.createdBy = createdBy;
-    }
-
-    public LocalDateTime getCreatedTime() {
-        return createdTime;
-    }
-
-    public void setCreatedTime(LocalDateTime createdTime) {
-        this.createdTime = createdTime;
-    }
-
-    public String getUpdateBy() {
-        return updateBy;
-    }
-
-    public void setUpdateBy(String updateBy) {
-        this.updateBy = updateBy;
-    }
-
-    public LocalDateTime getUpdateTime() {
-        return updateTime;
-    }
-
-    public void setUpdateTime(LocalDateTime updateTime) {
-        this.updateTime = updateTime;
-    }
-
-    public Integer getIsDeleted() {
-        return isDeleted;
-    }
-
-    public void setIsDeleted(Integer isDeleted) {
-        this.isDeleted = isDeleted;
-    }
-
-    @Override
-    public String toString() {
-        return "Info{" +
-            "id = " + id +
-            ", subjectName = " + subjectName +
-            ", subjectDifficult = " + subjectDifficult +
-            ", settleName = " + settleName +
-            ", subjectType = " + subjectType +
-            ", subjectScore = " + subjectScore +
-            ", subjectParse = " + subjectParse +
-            ", createdBy = " + createdBy +
-            ", createdTime = " + createdTime +
-            ", updateBy = " + updateBy +
-            ", updateTime = " + updateTime +
-            ", isDeleted = " + isDeleted +
-        "}";
-    }
 }

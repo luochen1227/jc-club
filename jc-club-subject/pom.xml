@@ -13,13 +13,16 @@
         <module>jc-club-subject-api</module>
         <module>jc-club-subject-application</module>
         <module>jc-club-subject-domain</module>
-        <module>jc-club-subject-common</module>
+        <module>jc-club-common</module>
         <module>jc-club-subject-infra</module>
         <module>jc-club-subject-starter</module>
     </modules>
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <maven.compiler.source>1.8</maven.compiler.source>
+        <maven.compiler.target>1.8</maven.compiler.target>
+        <maven.compiler.compilerVersion>1.8</maven.compiler.compilerVersion>
     </properties>
     <dependencies>
         <dependency>

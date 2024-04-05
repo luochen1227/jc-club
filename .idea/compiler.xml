@@ -9,8 +9,8 @@
         <module name="jc-club-subject-api" />
         <module name="jc-club-subject-starter" />
         <module name="jc-club-subject-application-controller" />
-        <module name="jc-club-subject-common" />
         <module name="jc-club-subject-domain" />
+        <module name="jc-club-common" />
         <module name="jc-club-subject-infra" />
         <module name="jc-club-subject-application-job" />
         <module name="jc-club-subject-application-mq" />

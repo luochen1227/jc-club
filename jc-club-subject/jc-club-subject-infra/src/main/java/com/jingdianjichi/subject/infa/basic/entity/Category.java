@@ -2,6 +2,7 @@ package com.jingdianjichi.subject.infa.basic.entity;
 
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableId;
+import com.baomidou.mybatisplus.annotation.TableLogic;
 import com.baomidou.mybatisplus.annotation.TableName;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -77,101 +78,7 @@ public class Category implements Serializable {
     /**
      * 是否删除 0: 未删除 1: 已删除
      */
-    private Boolean isDeleted;
+    @TableLogic
+    private int isDeleted;
 
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public String getCategoryName() {
-        return categoryName;
-    }
-
-    public void setCategoryName(String categoryName) {
-        this.categoryName = categoryName;
-    }
-
-    public Byte getCategoryType() {
-        return categoryType;
-    }
-
-    public void setCategoryType(Byte categoryType) {
-        this.categoryType = categoryType;
-    }
-
-    public String getImageUrl() {
-        return imageUrl;
-    }
-
-    public void setImageUrl(String imageUrl) {
-        this.imageUrl = imageUrl;
-    }
-
-    public Long getParentId() {
-        return parentId;
-    }
-
-    public void setParentId(Long parentId) {
-        this.parentId = parentId;
-    }
-
-    public String getCreatedBy() {
-        return createdBy;
-    }
-
-    public void setCreatedBy(String createdBy) {
-        this.createdBy = createdBy;
-    }
-
-    public LocalDateTime getCreatedTime() {
-        return createdTime;
-    }
-
-    public void setCreatedTime(LocalDateTime createdTime) {
-        this.createdTime = createdTime;
-    }
-
-    public String getUpdateBy() {
-        return updateBy;
-    }
-
-    public void setUpdateBy(String updateBy) {
-        this.updateBy = updateBy;
-    }
-
-    public LocalDateTime getUpdateTime() {
-        return updateTime;
-    }
-
-    public void setUpdateTime(LocalDateTime updateTime) {
-        this.updateTime = updateTime;
-    }
-
-    public Boolean getIsDeleted() {
-        return isDeleted;
-    }
-
-    public void setIsDeleted(Boolean isDeleted) {
-        this.isDeleted = isDeleted;
-    }
-
-    @Override
-    public String toString() {
-        return "Category{" +
-            "id = " + id +
-            ", categoryName = " + categoryName +
-            ", categoryType = " + categoryType +
-            ", imageUrl = " + imageUrl +
-            ", parentId = " + parentId +
-            ", createdBy = " + createdBy +
-            ", createdTime = " + createdTime +
-            ", updateBy = " + updateBy +
-            ", updateTime = " + updateTime +
-            ", isDeleted = " + isDeleted +
-        "}";
-    }
 }

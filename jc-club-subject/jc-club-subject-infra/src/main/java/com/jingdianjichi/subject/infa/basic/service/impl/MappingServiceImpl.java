@@ -6,6 +6,9 @@ import com.jingdianjichi.subject.infa.basic.service.IMappingService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import org.springframework.stereotype.Service;
 
+import javax.annotation.Resource;
+import java.util.List;
+
 /**
  * <p>
  * 题目分类关系表 服务实现类
@@ -16,5 +19,11 @@ import org.springframework.stereotype.Service;
  */
 @Service
 public class MappingServiceImpl extends ServiceImpl<MappingMapper, Mapping> implements IMappingService {
+    @Resource
+    private MappingMapper mappingMapper;
 
+    @Override
+    public List<Mapping> queryLabelId(Mapping mapping) {
+        return this.mappingMapper.queryDistinctLabelId(mapping);
+    }
 }

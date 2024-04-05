@@ -42,7 +42,7 @@ public class Judge implements Serializable {
     /**
      * 是否正确
      */
-    private Byte isCorrect;
+    private Integer isCorrect;
 
     /**
      * 创建人
@@ -66,81 +66,5 @@ public class Judge implements Serializable {
 
     private Integer isDeleted;
 
-    public Long getId() {
-        return id;
-    }
 
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public Long getSubjectId() {
-        return subjectId;
-    }
-
-    public void setSubjectId(Long subjectId) {
-        this.subjectId = subjectId;
-    }
-
-    public Byte getIsCorrect() {
-        return isCorrect;
-    }
-
-    public void setIsCorrect(Byte isCorrect) {
-        this.isCorrect = isCorrect;
-    }
-
-    public String getCreatedBy() {
-        return createdBy;
-    }
-
-    public void setCreatedBy(String createdBy) {
-        this.createdBy = createdBy;
-    }
-
-    public LocalDateTime getCreatedTime() {
-        return createdTime;
-    }
-
-    public void setCreatedTime(LocalDateTime createdTime) {
-        this.createdTime = createdTime;
-    }
-
-    public String getUpdateBy() {
-        return updateBy;
-    }
-
-    public void setUpdateBy(String updateBy) {
-        this.updateBy = updateBy;
-    }
-
-    public LocalDateTime getUpdateTime() {
-        return updateTime;
-    }
-
-    public void setUpdateTime(LocalDateTime updateTime) {
-        this.updateTime = updateTime;
-    }
-
-    public Integer getIsDeleted() {
-        return isDeleted;
-    }
-
-    public void setIsDeleted(Integer isDeleted) {
-        this.isDeleted = isDeleted;
-    }
-
-    @Override
-    public String toString() {
-        return "Judge{" +
-            "id = " + id +
-            ", subjectId = " + subjectId +
-            ", isCorrect = " + isCorrect +
-            ", createdBy = " + createdBy +
-            ", createdTime = " + createdTime +
-            ", updateBy = " + updateBy +
-            ", updateTime = " + updateTime +
-            ", isDeleted = " + isDeleted +
-        "}";
-    }
 }
