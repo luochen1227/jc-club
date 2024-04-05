@@ -5,14 +5,14 @@ import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.jingdianjichi.domain.convert.CategoryConvert;
 import com.jingdianjichi.domain.entity.CategoryBo;
 import com.jingdianjichi.domain.service.SubjectCategoryDomainService;
-import com.jingdianjichi.subject.common.enums.IsDeletedEnum;
+
 import com.jingdianjichi.subject.infa.basic.entity.Category;
-import com.jingdianjichi.subject.infa.basic.entity.Mapping;
+
 import com.jingdianjichi.subject.infa.basic.mapper.CategoryMapper;
 import com.jingdianjichi.subject.infa.basic.service.ICategoryService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
-import sun.dc.pr.PRError;
+
 
 import javax.annotation.Resource;
 import java.util.List;
