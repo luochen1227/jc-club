@@ -10,8 +10,8 @@ import javax.annotation.Generated;
 
 @Generated(
     value = "org.mapstruct.ap.MappingProcessor",
-    date = "2024-04-04T16:48:31+0800",
-    comments = "version: 1.4.2.Final, compiler: javac, environment: Java 1.8.0_152 (Oracle Corporation)"
+    date = "2024-04-05T15:26:08+0800",
+    comments = "version: 1.4.2.Final, compiler: javac, environment: Java 20.0.1 (Oracle Corporation)"
 )
 public class InfoDtoConvertImpl implements InfoDtoConvert {
 
@@ -44,6 +44,10 @@ public class InfoDtoConvertImpl implements InfoDtoConvert {
         infoBo.setOptionList( answerDtoListToAnswerBoList( infoDto.getOptionList() ) );
         infoBo.setCategoryId( infoDto.getCategoryId() );
         infoBo.setLabelId( infoDto.getLabelId() );
+        List<String> list3 = infoDto.getLabelName();
+        if ( list3 != null ) {
+            infoBo.setLabelName( new ArrayList<String>( list3 ) );
+        }
 
         return infoBo;
     }
@@ -91,6 +95,10 @@ public class InfoDtoConvertImpl implements InfoDtoConvert {
         infoDto.setOptionList( answerBoListToAnswerDtoList( infoBo.getOptionList() ) );
         infoDto.setCategoryId( infoBo.getCategoryId() );
         infoDto.setLabelId( infoBo.getLabelId() );
+        List<String> list3 = infoBo.getLabelName();
+        if ( list3 != null ) {
+            infoDto.setLabelName( new ArrayList<String>( list3 ) );
+        }
 
         return infoDto;
     }
