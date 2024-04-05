@@ -5,6 +5,7 @@
         <groupId>com.jingdianjichi</groupId>
         <artifactId>jc-club-subject</artifactId>
         <version>1.0-SNAPSHOT</version>
+        <relativePath>../../jc-club-subject</relativePath>
     </parent>
 
     <artifactId>jc-club-subject-starter</artifactId>

@@ -18,19 +18,13 @@ import java.io.Serializable;
  * @author luochen
  * @since 2024-03-28
  */
-@TableName("subject_label")
+
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
 @ToString
 public class LabelBo implements Serializable {
 
-    private static final long serialVersionUID = 1L;
-
-    /**
-     * 主键
-     */
-    @TableId(value = "id", type = IdType.AUTO)
     private Long id;
 
     /**
