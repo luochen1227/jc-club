@@ -82,7 +82,7 @@ public class LabelController {
             Result<Boolean> booleanResult = labelDomainService.deleteLabel(labelBo);
             return booleanResult;
         } catch (Exception e) {
-            log.error("CategoryController.add.err:{}", e.getMessage());
+            log.error("CategoryController.deleteLabel.err:{}", e.getMessage());
             return Result.fail(e.getMessage());
         }
     }
@@ -100,7 +100,7 @@ public class LabelController {
             List<LabelDto> labelDtoList = LabelDtoConvert.INSTANCE.convertBoToCategoryDtoList(labelBoList);
             return Result.ok(labelDtoList,"查询成功");
         } catch (Exception e) {
-            log.error("CategoryController.add.err:{}", e.getMessage());
+            log.error("CategoryController.queryLabelByCategoryId.err:{}", e.getMessage());
             return Result.fail(e.getMessage());
         }
     }

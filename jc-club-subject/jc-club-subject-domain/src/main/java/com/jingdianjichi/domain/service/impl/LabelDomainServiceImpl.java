@@ -5,6 +5,8 @@ import com.jingdianjichi.domain.convert.LabelConvert;
 import com.jingdianjichi.domain.entity.LabelBo;
 import com.jingdianjichi.domain.service.LabelDomainService;
 import com.jingdianjichi.subject.common.entity.Result;
+import com.jingdianjichi.subject.common.enums.CategoryTypeEnum;
+import com.jingdianjichi.subject.infa.basic.entity.Category;
 import com.jingdianjichi.subject.infa.basic.entity.Label;
 import com.jingdianjichi.subject.infa.basic.entity.Mapping;
 import com.jingdianjichi.subject.infa.basic.mapper.CategoryMapper;
@@ -60,6 +62,16 @@ public class LabelDomainServiceImpl implements LabelDomainService {
 
     @Override
     public List<LabelBo> queryLabelByCategoryId(LabelBo labelBo) {
+        String categoryId = labelBo.getCategoryId();
+        //如果当前分类是一级分类，则查询所有标签
+        Category category = categoryMapper.selectById(categoryId);
+        if(CategoryTypeEnum.PRIMARY.getCode() == category.getCategoryType()){
+            Label subjectLabel = new Label();
+            subjectLabel.setCategoryId(labelBo.getCategoryId());
+            List<Label> labelList = iLabelService.queryByCondition(subjectLabel);
+            List<LabelBo> labelResultList = LabelConvert.INSTANCE.convertEntityToBo(labelList);
+            return labelResultList;
+        }
         Label label = LabelConvert.INSTANCE.convertBoToLabel(labelBo);
         LambdaQueryWrapper<Mapping> mappingLambdaQueryWrapper = new LambdaQueryWrapper<>();
         mappingLambdaQueryWrapper.eq(Mapping::getCategoryId,label.getCategoryId());

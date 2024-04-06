@@ -5,9 +5,14 @@
     <option name="originalFiles">
       <list>
         <option value="$PROJECT_DIR$/jc-club-subject/pom.xml" />
+        <option value="$PROJECT_DIR$/jc-club-oss/pom.xml" />
+        <option value="$PROJECT_DIR$/jc-club-auth/pom.xml" />
+        <option value="$PROJECT_DIR$/jc-club-gateway/pom.xml" />
+        <option value="$PROJECT_DIR$/jc-club-auth/jc-club-auth-application/jc-club-auth-mq/pom.xml" />
+        <option value="$PROJECT_DIR$/jc-club-auth/jc-club-auth-application/jc-club-auth-application-mq/pom.xml" />
+        <option value="$PROJECT_DIR$/jc-club-auth/jc-club-auth-starter/pom.xml" />
       </list>
     </option>
-    <option name="workspaceImportForciblyTurnedOn" value="true" />
   </component>
   <component name="ProjectRootManager" version="2" languageLevel="JDK_20" default="true" project-jdk-name="20" project-jdk-type="JavaSDK">
     <output url="file://$PROJECT_DIR$/out" />
