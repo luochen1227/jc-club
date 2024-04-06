@@ -11,6 +11,7 @@
         <module name="jc-club-gateway" />
         <module name="jc-club-auth-application-job" />
         <module name="jc-club-subject-domain" />
+        <module name="jc-club-auth-api" />
         <module name="jc-club-subject-infra" />
         <module name="jc-club-auth-domain" />
         <module name="jc-club-auth-starter" />
