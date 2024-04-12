@@ -13,7 +13,7 @@ public class CodeGenerator {
         String password = "137080";
         String moduleName = "subject";
         //jc-club\jc-club\jc-club-subject\jc-club-subject-infra\src\test\java\org\spoto
-        String mapperLocation = "D:\\DevelopFiles\\jc-club\\jc-club\\jc-club-subject\\jc-club-subject-infra\\src\\test\\resources\\mapper\\"
+        String mapperLocation = "D:\\DevelopFiles\\jc-club\\jc-club\\jc-club-subject\\jc-club-subject-infra\\src\\test\\resources\\infra\\"
                 + moduleName;
         String tables = "subject_category,subject_info,subject_judge,subject_label,subject_mapping,subject_multiple,subject_radio,subject_brief";
         FastAutoGenerator.create(url, username, password)

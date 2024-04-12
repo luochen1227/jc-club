@@ -8,6 +8,7 @@
         <outputRelativeToContentRoot value="true" />
         <module name="jc-club-auth-infra" />
         <module name="jc-club-subject-application-controller" />
+        <module name="jc-club-wx" />
         <module name="jc-club-gateway" />
         <module name="jc-club-auth-application-job" />
         <module name="jc-club-subject-domain" />

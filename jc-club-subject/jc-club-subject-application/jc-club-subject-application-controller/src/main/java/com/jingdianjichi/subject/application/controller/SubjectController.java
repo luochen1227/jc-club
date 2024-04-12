@@ -1,32 +1,22 @@
 package com.jingdianjichi.subject.application.controller;
 
 import com.alibaba.fastjson2.JSON;
-import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
-import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.google.common.base.Preconditions;
-import com.jingdianjichi.domain.convert.InfoConvert;
-import com.jingdianjichi.domain.entity.AnswerBo;
-import com.jingdianjichi.domain.entity.CategoryBo;
-import com.jingdianjichi.domain.entity.InfoBo;
-import com.jingdianjichi.domain.service.InfoDomainService;
+import com.jingdianjichi.auth.domain.entity.AnswerBo;
+import com.jingdianjichi.auth.domain.entity.InfoBo;
+import com.jingdianjichi.auth.domain.service.InfoDomainService;
 import com.jingdianjichi.subject.application.convert.AnswerDtoConvert;
-import com.jingdianjichi.subject.application.convert.CategoryDtoConvert;
 import com.jingdianjichi.subject.application.convert.InfoDtoConvert;
-import com.jingdianjichi.subject.application.dto.CategoryDto;
 import com.jingdianjichi.subject.application.dto.InfoDto;
 import com.jingdianjichi.subject.common.entity.PageResult;
 import com.jingdianjichi.subject.common.entity.Result;
-import com.jingdianjichi.subject.infa.basic.entity.Category;
-import com.jingdianjichi.subject.infa.basic.service.ICategoryService;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.util.CollectionUtils;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 /**
  * @author 坤

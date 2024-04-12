@@ -11,6 +11,7 @@
         <option value="$PROJECT_DIR$/jc-club-auth/jc-club-auth-application/jc-club-auth-mq/pom.xml" />
         <option value="$PROJECT_DIR$/jc-club-auth/jc-club-auth-application/jc-club-auth-application-mq/pom.xml" />
         <option value="$PROJECT_DIR$/jc-club-auth/jc-club-auth-starter/pom.xml" />
+        <option value="$PROJECT_DIR$/jc-club-wx/pom.xml" />
       </list>
     </option>
   </component>

@@ -1,7 +1,7 @@
 package com.jingdianjichi.subject.application.convert;
 
-import com.jingdianjichi.domain.entity.AnswerBo;
-import com.jingdianjichi.domain.entity.InfoBo;
+import com.jingdianjichi.auth.domain.entity.AnswerBo;
+import com.jingdianjichi.auth.domain.entity.InfoBo;
 import com.jingdianjichi.subject.application.dto.AnswerDto;
 import com.jingdianjichi.subject.application.dto.InfoDto;
 import java.util.ArrayList;
@@ -10,7 +10,7 @@ import javax.annotation.Generated;
 
 @Generated(
     value = "org.mapstruct.ap.MappingProcessor",
-    date = "2024-04-06T15:55:12+0800",
+    date = "2024-04-10T14:33:19+0800",
     comments = "version: 1.4.2.Final, compiler: javac, environment: Java 1.8.0_152 (Oracle Corporation)"
 )
 public class InfoDtoConvertImpl implements InfoDtoConvert {
