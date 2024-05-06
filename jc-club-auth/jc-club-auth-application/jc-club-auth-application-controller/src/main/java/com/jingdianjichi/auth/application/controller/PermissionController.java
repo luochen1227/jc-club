@@ -96,4 +96,29 @@ public class PermissionController {
             return Result.fail(e.getMessage());
         }
     }
+    /**
+     * @description 查询用户权限
+     * @param
+     * @return Result<Boolean> 
+     * @date 2024/4/18 15:35
+     * @author 坤
+     */
+    
+    @PostMapping("/getPermission")
+    public Result<Boolean> getPermission(String userName) {
+        try {
+            if (log.isInfoEnabled()) {
+                log.info("UserController.getPermission.dto:{}", userName);
+            }
+            Preconditions.checkArgument(!StringUtils.isBlank(userName), "id不能为空");
+//            Preconditions.checkNotNull(permissionDto.getNickName(), "用户昵称不能为空");
+//            Preconditions.checkArgument(!StringUtils.isBlank(userDto.getEmail()), "email不能为空");
+//            Preconditions.checkArgument(!StringUtils.isBlank(userDto.getPhone()), "手机号不能为空");
+//            Preconditions.checkArgument(!StringUtils.isBlank(userDto.getPassword()), "密码不能为空");
+            return Result.ok(permissionDomainService.getPermission(userName));
+        } catch (Exception e) {
+            log.error("UserController.deletePermission.err:{}", e.getMessage());
+            return Result.fail("用户权限查询失败");
+        }
+    }
 }

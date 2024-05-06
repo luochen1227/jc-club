@@ -2,7 +2,6 @@ package com.jingdianjichi.auth.application.controller;
 
 import cn.dev33.satoken.stp.SaTokenInfo;
 import cn.dev33.satoken.stp.StpUtil;
-import cn.dev33.satoken.util.SaResult;
 import com.alibaba.fastjson2.JSON;
 import com.google.common.base.Preconditions;
 import com.jingdianjichi.auth.application.converter.UserDtoConverter;
@@ -12,10 +11,8 @@ import com.jingdianjichi.auth.domain.service.UserDomainService;
 import com.jingdianjichi.entity.Result;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.beans.BeanUtils;
+import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
 
@@ -56,9 +53,7 @@ public class UserController {
                 log.info("UserController.updateUser.dto:{}", JSON.toJSONString(userDto));
             }
             Preconditions.checkNotNull(userDto.getUserName(), "用户名称/账号");
-            Preconditions.checkNotNull(userDto.getNickName(), "用户昵称不能为空");
-            Preconditions.checkArgument(!StringUtils.isBlank(userDto.getEmail()), "email不能为空");
-            Preconditions.checkArgument(!StringUtils.isBlank(userDto.getPhone()), "手机号不能为空");
+
             UserBo userBo = UserDtoConverter.INSTANCE.convertDtoToInfoBo(userDto);
             int i = userDomainService.updateUser(userBo);
             if (i > 0) {
@@ -107,6 +102,7 @@ public class UserController {
             return Result.fail(e.getMessage());
         }
     }
+
     @PostMapping("/getUserPassword")
     public Result<Boolean> getUserPassword(@RequestBody UserDto userDto) {
         try {
@@ -123,14 +119,52 @@ public class UserController {
             return Result.fail(e.getMessage());
         }
     }
-    @PostMapping("/doLogin")
-    public SaResult doLogin(String username, String password) {
-            if ("zhang".equals(username) && "123456".equals(password)){
-                StpUtil.login("鸡翅1");
-                SaTokenInfo tokenInfo = StpUtil.getTokenInfo();
-                return SaResult.data(tokenInfo);
-            }
 
-            return SaResult.data("error");
+    @GetMapping("/doLogin")
+    public Result<SaTokenInfo> doLogin(@RequestParam("validCode") String validCode) {
+        try {
+            if (log.isInfoEnabled()) {
+                log.info("UserController.doLogin.dto:{}", JSON.toJSONString(validCode));
+            }
+            Preconditions.checkNotNull(validCode, "验证码不能为空");
+            SaTokenInfo saTokenInfo = userDomainService.doLogin(validCode);
+            return Result.ok(saTokenInfo);
+
+        } catch (Exception e) {
+            log.error("UserController.doLogin.err:{}", e.getMessage());
+            return Result.fail("用户登录失败");
+        }
+    }
+
+    @PostMapping("/getUserInfo")
+    public Result<UserDto> getUserInfo(@RequestBody UserDto userDto) {
+        try {
+            if (log.isInfoEnabled()) {
+                log.info("UserController.getUserInfo.dto:{}", JSON.toJSONString(userDto));
+            }
+            Preconditions.checkNotNull(userDto.getUserName(), "用户名称/账号不能为空");
+            UserBo userBo = UserDtoConverter.INSTANCE.convertDtoToInfoBo(userDto);
+            UserBo userBo1 = userDomainService.getUserInfo(userBo);
+            UserDto userDto1 = new UserDto();
+            BeanUtils.copyProperties(userBo1, userDto1);
+            return Result.ok(userDto1);
+
+        } catch (Exception e) {
+            log.error("UserController.getUserInfo.err:{}", e.getMessage());
+            return Result.fail(e.getMessage());
+        }
+    }
+
+    @GetMapping("/logOut")
+    public Result logOut(@RequestParam String userName) {
+        try {
+            log.info("UserController.logOut.dto:{}", userName);
+            Preconditions.checkNotNull(userName, "用户名称/账号不能为空");
+            StpUtil.logout(userName);
+            return Result.ok("用户登出成功");
+        } catch (Exception e) {
+            log.error("UserController.logOut.err:{}", e.getMessage());
+            return Result.fail("用户登出失败");
+        }
     }
 }

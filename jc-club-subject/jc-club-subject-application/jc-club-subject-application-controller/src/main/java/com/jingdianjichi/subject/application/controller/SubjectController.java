@@ -89,6 +89,37 @@ public class SubjectController {
             log.error("CategoryController.querySubjectInfo.err:{}", e.getMessage());
             return Result.fail("false");
         }
-
     }
+//    @PostMapping("/getContributeList")
+//    public Result<InfoDto> getContributeList(@RequestBody InfoDto infoDto) {
+//        try {
+//            if (log.isInfoEnabled()) {
+//                log.info("SubjectController.querySubjectInfo.dto:{}", JSON.toJSONString(infoDto));
+//            }
+//            Preconditions.checkNotNull(infoDto.getId(), "题目id不能为空");
+//            InfoBo infoBo = InfoDtoConvert.INSTANCE.convertDtoToInfoBo(infoDto);
+//            InfoBo infoBo1 =  infoDomainService.querySubjectInfo(infoBo);
+//            InfoDto infoDto1 = InfoDtoConvert.INSTANCE.convertBoToInfoDto(infoBo1);
+//            return Result.ok(infoDto1);
+//        }catch (Exception e){
+//            log.error("CategoryController.querySubjectInfo.err:{}", e.getMessage());
+//            return Result.fail("false");
+//        }
+//    }
+//    @PostMapping("/category/queryPrimaryCategory")
+//    public Result<InfoDto> queryPrimaryCategory(@RequestBody InfoDto infoDto) {
+//        try {
+//            if (log.isInfoEnabled()) {
+//                log.info("SubjectController.querySubjectInfo.dto:{}", JSON.toJSONString(infoDto));
+//            }
+//            Preconditions.checkNotNull(infoDto.getId(), "题目id不能为空");
+//            InfoBo infoBo = InfoDtoConvert.INSTANCE.convertDtoToInfoBo(infoDto);
+//            InfoBo infoBo1 =  infoDomainService.querySubjectInfo(infoBo);
+//            InfoDto infoDto1 = InfoDtoConvert.INSTANCE.convertBoToInfoDto(infoBo1);
+//            return Result.ok(infoDto1);
+//        }catch (Exception e){
+//            log.error("CategoryController.querySubjectInfo.err:{}", e.getMessage());
+//            return Result.fail("false");
+//        }
+//    }
 }

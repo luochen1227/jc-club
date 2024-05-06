@@ -2,9 +2,12 @@ package com.jingdianjichi.auth.domain.service.impl;
 
 import com.alibaba.fastjson2.JSON;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
+import com.google.common.reflect.TypeToken;
+import com.google.gson.Gson;
 import com.jingdianjichi.auth.domain.bo.PermissionBo;
 import com.jingdianjichi.auth.domain.constants.AuthConstant;
 import com.jingdianjichi.auth.domain.converter.PermissionConverter;
+import com.jingdianjichi.auth.domain.redis.RedisUtil;
 import com.jingdianjichi.auth.domain.service.PermissionDomainService;
 import com.jingdianjichi.auth.infra.entity.Permission;
 import com.jingdianjichi.auth.infra.entity.Role;
@@ -16,11 +19,16 @@ import com.jingdianjichi.auth.infra.service.IPermissionService;
 import com.jingdianjichi.enums.IsDeletedFlagEnum;
 import com.jingdianjichi.utils.LocalTimeUtil;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
 import java.time.LocalDateTime;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.List;
+import java.util.stream.Collectors;
 
 @Slf4j
 @Service
@@ -35,6 +43,10 @@ public class PermissionDomainServiceImpl implements PermissionDomainService {
     private RoleMapper roleMapper;
     @Resource
     private RolePermissionMapper rolePermissionMapper;
+    @Resource
+    private RedisUtil redisUtil;
+    private String authPermissionPrefix = "auth.permission";
+    private String authRolePrefix = "auth.role";
 
     @Transactional
     @Override
@@ -58,7 +70,7 @@ public class PermissionDomainServiceImpl implements PermissionDomainService {
 //        rolePermission.setPermissionId(permissionId);
 //        rolePermission.setRoleId(roleId);
 //        rolePermissionMapper.insert(rolePermission);
-        return insert>0;
+        return insert > 0;
     }
 
     @Override
@@ -70,7 +82,7 @@ public class PermissionDomainServiceImpl implements PermissionDomainService {
         LocalDateTime localTime = LocalTimeUtil.getLocalTime();
         permission.setUpdateTime(localTime);
         int i = permissionMapper.updateById(permission);
-        return i>0;
+        return i > 0;
     }
 
     @Override
@@ -80,6 +92,19 @@ public class PermissionDomainServiceImpl implements PermissionDomainService {
         }
         Permission permission = PermissionConverter.INSTANCE.convertBoToEntity(permissionBo);
         int i = permissionMapper.deleteById(permission);
-        return i>0;
+        return i > 0;
+    }
+
+    @Override
+    public List<String> getPermission(String userName) {
+        String permissionKey = redisUtil.buildKey(authPermissionPrefix, userName);
+        String permissionValue = redisUtil.get(permissionKey);
+        if (StringUtils.isBlank(permissionValue)){
+            return Collections.emptyList();
+        }
+        List<Permission> permissionsList = new Gson().fromJson(permissionValue, new TypeToken<List<Permission>>() {
+        }.getType());
+        List<String> authList = permissionsList.stream().map(Permission::getPermissionKey).collect(Collectors.toList());
+        return authList;
     }
 }

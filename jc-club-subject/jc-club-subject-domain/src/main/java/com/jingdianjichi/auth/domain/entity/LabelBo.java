@@ -37,7 +37,7 @@ public class LabelBo implements Serializable {
      */
     private Integer sortNum;
 
-    private String categoryId;
+    private Integer categoryId;
 
 
 }

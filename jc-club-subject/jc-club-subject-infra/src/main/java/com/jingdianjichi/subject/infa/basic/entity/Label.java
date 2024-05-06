@@ -45,7 +45,7 @@ public class Label implements Serializable {
      */
     private Integer sortNum;
 
-    private String categoryId;
+    private Integer categoryId;
 
     /**
      * 创建人

@@ -10,6 +10,7 @@ import lombok.ToString;
 
 import java.io.Serializable;
 import java.time.LocalDateTime;
+import java.util.List;
 
 /**
  * <p>
@@ -54,5 +55,7 @@ public class CategoryBo implements Serializable {
      */
     private Long parentId;
 
+    private Integer count;
+    private List<LabelBo> labelBoList;
 
 }

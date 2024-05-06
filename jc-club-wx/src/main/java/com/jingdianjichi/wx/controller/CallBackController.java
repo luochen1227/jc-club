@@ -1,14 +1,23 @@
 package com.jingdianjichi.wx.controller;
 
+import com.jingdianjichi.wx.handler.WxChatMsgFactory;
+import com.jingdianjichi.wx.handler.WxChatMsgHandler;
+import com.jingdianjichi.wx.utils.MessageUtil;
 import com.jingdianjichi.wx.utils.SHA1;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
+
+import javax.annotation.Resource;
+import java.util.Map;
+import java.util.Objects;
 
 @RestController
 @Slf4j
 public class CallBackController {
     private static final String token = "123";
-
+    @Resource
+    private WxChatMsgFactory wxChatMsgFactory;
     @RequestMapping("/text")
     public String test() {
         return "suc";
@@ -47,7 +56,25 @@ public class CallBackController {
             @RequestParam(value = "msg_signature",required = false) String msgSignature) {
         log.info("get验签请求参数：requestBody：{}，signature：{}，timestamp:{}，nonce:{}，echostr:{}",requestBody,
                 signature, timestamp, nonce);
-        System.out.println(requestBody);
-        return "unknown";
+
+        Map<String, String> messageMap = MessageUtil.parseXml(requestBody);
+        String msgType = messageMap.get("MsgType");
+        String event = messageMap.get("Event") == null ? "" : messageMap.get("Event");
+        log.info("msgType:{},event:{}", msgType, event);
+
+        StringBuilder sb = new StringBuilder();
+        sb.append(msgType);
+        if (!StringUtils.isEmpty(event)) {
+            sb.append(".");
+            sb.append(event);
+        }
+        String msgTypeKey = sb.toString();
+        WxChatMsgHandler wxChatMsgHandler = wxChatMsgFactory.getHandlerByMsgType(msgTypeKey);
+        if (Objects.isNull(wxChatMsgHandler)) {
+            return "unknown";
+        }
+        String replyContent = wxChatMsgHandler.dealMsg(messageMap);
+        log.info("replyContent:{}", replyContent);
+        return replyContent;
     }
 }

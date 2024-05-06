@@ -5,13 +5,16 @@ import com.google.common.base.Preconditions;
 import com.jingdianjichi.auth.domain.entity.CategoryBo;
 import com.jingdianjichi.auth.domain.service.SubjectCategoryDomainService;
 import com.jingdianjichi.subject.application.convert.CategoryDtoConvert;
+import com.jingdianjichi.subject.application.convert.LabelDtoConvert;
 import com.jingdianjichi.subject.application.dto.CategoryDto;
+import com.jingdianjichi.subject.application.dto.LabelDto;
 import com.jingdianjichi.subject.common.entity.Result;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
+import java.util.LinkedList;
 import java.util.List;
 
 /**
@@ -47,7 +50,7 @@ public class CategoryController {
         }
     }
 
-    @GetMapping("/queryPrimaryCategory")
+    @PostMapping("/queryPrimaryCategory")
     public Result<List<CategoryDto>> queryPrimaryCategory(@RequestBody CategoryDto categoryDto) {
         try {
             Byte categoryType = categoryDto.getCategoryType();
@@ -98,5 +101,34 @@ public class CategoryController {
             log.error(e.getMessage(),e);
             return Result.fail(false);
         }
+    }
+    /**
+     * @description  查询分类及标签 一次性
+     * @param categoryDto
+     * @return Result<List<CategoryDto>>
+     * @date 2024/4/15 16:11
+     * @author 坤
+     */
+    @PostMapping("/queryCategoryAndLabel")
+    public Result<List<CategoryDto>> queryCategoryAndLabel(@RequestBody CategoryDto categoryDto) {
+        try {
+            if (log.isInfoEnabled()) {
+                log.info("CategoryController.queryCategoryAndLabel.dto:{}", JSON.toJSONString(categoryDto));
+            }
+            CategoryBo categoryBo = CategoryDtoConvert.INSTANCE.convertDtoToCategoryBo(categoryDto);
+            List<CategoryBo> categoryBoList = subjectCategoryDomainService.queryCategoryAndLabel(categoryBo);
+            List<CategoryDto> dtoList = new LinkedList<>();
+            categoryBoList.forEach(bo -> {
+                CategoryDto dto = CategoryDtoConvert.INSTANCE.convertBoToCategoryDto(bo);
+                List<LabelDto> labelDtos = LabelDtoConvert.INSTANCE.convertBoToCategoryDtoList(bo.getLabelBoList());
+                dto.setLabelDTOList(labelDtos);
+                dtoList.add(dto);
+            });
+            return Result.ok(dtoList);
+        } catch (Exception e) {
+            log.error("CategoryController.queryCategoryAndLabel.error:{}", e.getMessage(), e);
+            return Result.fail("查询失败");
+        }
+
     }
 }

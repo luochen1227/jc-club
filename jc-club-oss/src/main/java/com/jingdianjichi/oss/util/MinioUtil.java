@@ -9,6 +9,7 @@ import io.minio.messages.Item;
 import org.springframework.stereotype.Component;
 
 import javax.annotation.Resource;
+import javax.print.attribute.standard.Media;
 import java.io.IOException;
 import java.io.InputStream;
 import java.security.InvalidKeyException;
@@ -43,7 +44,7 @@ public class MinioUtil {
      * 上传文件
      */
     public void uploadFile(InputStream inputStream, String bucket, String objectName) throws Exception {
-        minioClient.putObject(PutObjectArgs.builder().bucket(bucket).object(objectName)
+        minioClient.putObject(PutObjectArgs.builder().bucket(bucket).contentType("image/jpeg").object(objectName)
                 .stream(inputStream, -1, 5242889L).build());
     }
 

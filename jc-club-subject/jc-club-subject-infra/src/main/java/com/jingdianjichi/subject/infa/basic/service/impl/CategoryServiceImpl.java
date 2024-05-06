@@ -6,6 +6,8 @@ import com.jingdianjichi.subject.infa.basic.service.ICategoryService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import org.springframework.stereotype.Service;
 
+import javax.annotation.Resource;
+
 /**
  * <p>
  * 题目分类 服务实现类
@@ -16,5 +18,10 @@ import org.springframework.stereotype.Service;
  */
 @Service
 public class CategoryServiceImpl extends ServiceImpl<CategoryMapper, Category> implements ICategoryService {
-
+    @Resource
+    private CategoryMapper categoryMapper;
+    @Override
+    public Integer querySubjectCount(Long id) {
+        return categoryMapper.querySubjectCount(id);
+    }
 }

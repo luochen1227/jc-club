@@ -6,6 +6,7 @@ import com.jingdianjichi.auth.domain.service.LabelDomainService;
 import com.jingdianjichi.auth.domain.entity.LabelBo;
 import com.jingdianjichi.subject.common.entity.Result;
 import com.jingdianjichi.subject.common.enums.CategoryTypeEnum;
+import com.jingdianjichi.subject.common.enums.IsDeletedFlagEnum;
 import com.jingdianjichi.subject.infa.basic.entity.Category;
 import com.jingdianjichi.subject.infa.basic.entity.Label;
 import com.jingdianjichi.subject.infa.basic.entity.Mapping;
@@ -37,6 +38,12 @@ public class LabelDomainServiceImpl implements LabelDomainService {
     public void addLabel(LabelBo labelBo) {
         Label label = LabelConvert.INSTANCE.convertBoToLabel(labelBo);
         labelMapper.insert(label);
+        Long labelId = label.getId();
+        Mapping mapping = new Mapping();
+        mapping.setIsDeleted(IsDeletedFlagEnum.UN_DELETED.getCode());
+        mapping.setLabelId(labelId);
+        mapping.setCategoryId(Long.valueOf(labelBo.getCategoryId()));
+        mappingMapper.insert(mapping);
     }
 
     @Override
@@ -62,7 +69,7 @@ public class LabelDomainServiceImpl implements LabelDomainService {
 
     @Override
     public List<LabelBo> queryLabelByCategoryId(LabelBo labelBo) {
-        String categoryId = labelBo.getCategoryId();
+        Integer categoryId = labelBo.getCategoryId();
         //如果当前分类是一级分类，则查询所有标签
         Category category = categoryMapper.selectById(categoryId);
         if(CategoryTypeEnum.PRIMARY.getCode() == category.getCategoryType()){

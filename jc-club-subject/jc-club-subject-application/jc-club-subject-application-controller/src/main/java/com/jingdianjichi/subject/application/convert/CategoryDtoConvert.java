@@ -12,5 +12,8 @@ public interface CategoryDtoConvert {
     CategoryDtoConvert INSTANCE = Mappers.getMapper(CategoryDtoConvert.class);
 
     CategoryBo convertDtoToCategoryBo(CategoryDto categoryDto);
+    CategoryDto convertBoToCategoryDto(CategoryBo categoryBo);
     List<CategoryDto> convertBoToCategoryDtoList(List<CategoryBo> categoryBoList);
+
+
 }
