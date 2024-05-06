@@ -1,0 +1,11 @@
+D:\DevelopFiles\jc-club\jc-club\jc-club-gateway\src\main\java\com\jingdianjichi\gateway\enums\IsDeletedFlagEnum.java
+D:\DevelopFiles\jc-club\jc-club\jc-club-gateway\src\main\java\com\jingdianjichi\gateway\enums\ResultCodeEnum.java
+D:\DevelopFiles\jc-club\jc-club\jc-club-gateway\src\main\java\com\jingdianjichi\gateway\redis\RedisUtil.java
+D:\DevelopFiles\jc-club\jc-club\jc-club-gateway\src\main\java\com\jingdianjichi\gateway\entity\Result.java
+D:\DevelopFiles\jc-club\jc-club\jc-club-gateway\src\main\java\com\jingdianjichi\gateway\auth\StpInterfaceImpl.java
+D:\DevelopFiles\jc-club\jc-club\jc-club-gateway\src\main\java\com\jingdianjichi\gateway\entity\Permission.java
+D:\DevelopFiles\jc-club\jc-club\jc-club-gateway\src\main\java\com\jingdianjichi\gateway\redis\RedisConfig.java
+D:\DevelopFiles\jc-club\jc-club\jc-club-gateway\src\main\java\com\jingdianjichi\gateway\auth\SaTokenConfigure.java
+D:\DevelopFiles\jc-club\jc-club\jc-club-gateway\src\main\java\com\jingdianjichi\gateway\exception\GatewayExceptionHandler.java
+D:\DevelopFiles\jc-club\jc-club\jc-club-gateway\src\main\java\com\jingdianjichi\gateway\GatewayApplication.java
+D:\DevelopFiles\jc-club\jc-club\jc-club-gateway\src\main\java\com\jingdianjichi\gateway\entity\Role.java
