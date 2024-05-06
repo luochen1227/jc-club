@@ -14,4 +14,5 @@ import com.jingdianjichi.subject.infa.basic.entity.Category;
  */
 public interface CategoryMapper extends BaseMapper<Category> {
 
+    Integer querySubjectCount(Long id);
 }

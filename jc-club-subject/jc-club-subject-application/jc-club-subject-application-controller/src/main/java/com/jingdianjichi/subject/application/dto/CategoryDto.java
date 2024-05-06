@@ -9,6 +9,7 @@ import lombok.NoArgsConstructor;
 import lombok.ToString;
 
 import java.io.Serializable;
+import java.util.List;
 
 /**
  * <p>
@@ -52,6 +53,11 @@ public class CategoryDto implements Serializable {
      * 父级id
      */
     private Long parentId;
+    private Long count;
+    /**
+     * 标签信息
+     */
+    private List<LabelDto> labelDTOList;
 
 
 }

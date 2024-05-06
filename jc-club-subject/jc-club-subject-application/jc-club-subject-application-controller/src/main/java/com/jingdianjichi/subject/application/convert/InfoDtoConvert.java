@@ -1,9 +1,7 @@
 package com.jingdianjichi.subject.application.convert;
 
-import com.jingdianjichi.domain.entity.InfoBo;
-import com.jingdianjichi.domain.entity.LabelBo;
+import com.jingdianjichi.auth.domain.entity.InfoBo;
 import com.jingdianjichi.subject.application.dto.InfoDto;
-import com.jingdianjichi.subject.application.dto.LabelDto;
 import org.mapstruct.Mapper;
 import org.mapstruct.factory.Mappers;
 

@@ -6,6 +6,9 @@ import com.jingdianjichi.subject.infa.basic.service.ILabelService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import org.springframework.stereotype.Service;
 
+import javax.annotation.Resource;
+import java.util.List;
+
 /**
  * <p>
  * 题目标签表 服务实现类
@@ -16,5 +19,11 @@ import org.springframework.stereotype.Service;
  */
 @Service
 public class LabelServiceImpl extends ServiceImpl<LabelMapper, Label> implements ILabelService {
+    @Resource
+    private LabelMapper labelMapper;
 
+    @Override
+    public List<Label> queryByCondition(Label subjectLabel) {
+        return this.labelMapper.queryByCondition(subjectLabel);
+    }
 }

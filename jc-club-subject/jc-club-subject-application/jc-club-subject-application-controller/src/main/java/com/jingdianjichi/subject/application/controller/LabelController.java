@@ -2,20 +2,15 @@ package com.jingdianjichi.subject.application.controller;
 
 import com.alibaba.fastjson2.JSON;
 import com.google.common.base.Preconditions;
-import com.jingdianjichi.domain.entity.CategoryBo;
-import com.jingdianjichi.domain.entity.LabelBo;
-import com.jingdianjichi.domain.service.LabelDomainService;
-import com.jingdianjichi.subject.application.convert.CategoryDtoConvert;
+import com.jingdianjichi.auth.domain.entity.LabelBo;
+import com.jingdianjichi.auth.domain.service.LabelDomainService;
 import com.jingdianjichi.subject.application.convert.LabelDtoConvert;
-import com.jingdianjichi.subject.application.dto.CategoryDto;
 import com.jingdianjichi.subject.application.dto.LabelDto;
 import com.jingdianjichi.subject.common.entity.Result;
 import lombok.extern.slf4j.Slf4j;
-import org.apache.commons.lang3.StringUtils;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.annotation.Resource;
@@ -82,7 +77,7 @@ public class LabelController {
             Result<Boolean> booleanResult = labelDomainService.deleteLabel(labelBo);
             return booleanResult;
         } catch (Exception e) {
-            log.error("CategoryController.add.err:{}", e.getMessage());
+            log.error("CategoryController.deleteLabel.err:{}", e.getMessage());
             return Result.fail(e.getMessage());
         }
     }
@@ -100,7 +95,7 @@ public class LabelController {
             List<LabelDto> labelDtoList = LabelDtoConvert.INSTANCE.convertBoToCategoryDtoList(labelBoList);
             return Result.ok(labelDtoList,"查询成功");
         } catch (Exception e) {
-            log.error("CategoryController.add.err:{}", e.getMessage());
+            log.error("CategoryController.queryLabelByCategoryId.err:{}", e.getMessage());
             return Result.fail(e.getMessage());
         }
     }

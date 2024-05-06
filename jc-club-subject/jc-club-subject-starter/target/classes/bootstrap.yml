@@ -1,0 +1,16 @@
+spring:
+  application:
+    name: jc-club-subject
+  profiles:
+    active: dev
+  cloud:
+    nacos:
+      config:
+        server-addr: 47.122.45.3:8848
+        prefix: ${spring.application.name}
+        group: jc-club
+        namespace: dev402
+        file-extension: yaml
+      discovery:
+        enabled: true
+        server-addr: 47.122.45.3:8848

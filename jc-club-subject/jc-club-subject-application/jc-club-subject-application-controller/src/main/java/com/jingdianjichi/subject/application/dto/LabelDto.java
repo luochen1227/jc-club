@@ -44,7 +44,7 @@ public class LabelDto implements Serializable {
      */
     private Integer sortNum;
 
-    private String categoryId;
+    private Integer categoryId;
 
 
 }
