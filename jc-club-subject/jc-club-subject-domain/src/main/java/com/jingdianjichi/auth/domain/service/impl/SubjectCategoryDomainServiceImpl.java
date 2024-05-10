@@ -17,15 +17,18 @@ import com.jingdianjichi.subject.infa.basic.mapper.LabelMapper;
 import com.jingdianjichi.subject.infa.basic.service.ICategoryService;
 import com.jingdianjichi.subject.infa.basic.service.ILabelService;
 import com.jingdianjichi.subject.infa.basic.service.IMappingService;
+import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.ibatis.util.MapUtil;
 import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
 import org.springframework.util.CollectionUtils;
 
 
 import javax.annotation.Resource;
-import java.util.LinkedList;
-import java.util.List;
+import java.util.*;
+import java.util.concurrent.FutureTask;
+import java.util.concurrent.ThreadPoolExecutor;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
@@ -43,6 +46,9 @@ public class SubjectCategoryDomainServiceImpl implements SubjectCategoryDomainSe
     private ILabelService iLabelService;
     @Resource
     private LabelMapper labelMapper;
+    @Resource
+    private ThreadPoolExecutor labelThreadPool;
+
     @Override
     public void add(CategoryBo categorybo) {
         if (log.isInfoEnabled()) {
@@ -99,36 +105,57 @@ public class SubjectCategoryDomainServiceImpl implements SubjectCategoryDomainSe
         return i > 0;
     }
 
+    @SneakyThrows
     @Override
     public List<CategoryBo> queryCategoryAndLabel(CategoryBo categoryBo) {
         //查询当前大类下所有分类
         LambdaQueryWrapper<Category> categoryLambdaQueryWrapper = new LambdaQueryWrapper<>();
         categoryLambdaQueryWrapper.eq(Category::getParentId, categoryBo.getId());
         List<Category> categoryList = categoryMapper.selectList(categoryLambdaQueryWrapper);
-
-        //一次获取标签信息
         List<CategoryBo> categoryBoList = CategoryConvert.INSTANCE.convertEntityToBo(categoryList);
+        //一次获取标签信息
+        List<FutureTask<Map<Long, List<LabelBo>>>> futureTaskList = new LinkedList<>();
+        Map<Long, List<LabelBo>> map = new HashMap<>();
+        //线程池并发调用
         categoryBoList.forEach(category -> {
-            Mapping mapping = new Mapping();
-            mapping.setCategoryId(category.getId());
-            List<Mapping> mappingList = iMappingService.queryLabelId(mapping);
-            if (CollectionUtils.isEmpty(mappingList)){
-                return;
-            }
-            List<Long> labelIdList = mappingList.stream().map(Mapping::getLabelId).collect(Collectors.toList());
-            List<Label> labelList = labelMapper.selectBatchIds(labelIdList);
-            List<LabelBo> labelBos = new LinkedList<>();
-            labelList.forEach(label -> {
-                LabelBo labelBo = new LabelBo();
-                labelBo.setId(label.getId());
-                labelBo.setLabelName(label.getLabelName());
-                labelBo.setCategoryId(label.getCategoryId());
-                labelBo.setSortNum(label.getSortNum());
-                labelBos.add(labelBo);
-            });
-            category.setLabelBoList(labelBos);
+            FutureTask<Map<Long, List<LabelBo>>> futureTask = new FutureTask<>(() ->
+                    getLabelBoList(category));
+            futureTaskList.add(futureTask);
+            labelThreadPool.submit(futureTask);
         });
-
+        for (FutureTask<Map<Long, List<LabelBo>>> futureTask : futureTaskList) {
+            Map<Long, List<LabelBo>> resultMap = futureTask.get();
+            if (CollectionUtils.isEmpty(resultMap)){
+                continue;
+            }
+            map.putAll(resultMap);
+        }
+        categoryBoList.forEach(categoryBo1 -> {
+            categoryBo1.setLabelBoList(map.get(categoryBo1.getId()));
+        });
         return categoryBoList;
+    }
+
+    private Map<Long, List<LabelBo>> getLabelBoList(CategoryBo category) {
+        Map<Long, List<LabelBo>> labelMap = new HashMap<>();
+        Mapping mapping = new Mapping();
+        mapping.setCategoryId(category.getId());
+        List<Mapping> mappingList = iMappingService.queryLabelId(mapping);
+        if (CollectionUtils.isEmpty(mappingList)) {
+            return null;
+        }
+        List<Long> labelIdList = mappingList.stream().map(Mapping::getLabelId).collect(Collectors.toList());
+        List<Label> labelList = labelMapper.selectBatchIds(labelIdList);
+        List<LabelBo> labelBos = new LinkedList<>();
+        labelList.forEach(label -> {
+            LabelBo labelBo = new LabelBo();
+            labelBo.setId(label.getId());
+            labelBo.setLabelName(label.getLabelName());
+            labelBo.setCategoryId(label.getCategoryId());
+            labelBo.setSortNum(label.getSortNum());
+            labelBos.add(labelBo);
+        });
+        labelMap.put(category.getId(), labelBos);
+        return labelMap;
     }
 }
